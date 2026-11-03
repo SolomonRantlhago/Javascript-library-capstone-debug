@@ -11,7 +11,7 @@ import {
     filterBooks, filterCollection, iterateBooks,
     searchBooksByCategory, searchMembersByType,
     MAX_BOOKS_PER_MEMBER, LATE_FEE_PER_DAY
-} from '../src/library.js';
+} from '../public/src/library.js';
 
 import {
     resetLibrary,
@@ -20,10 +20,10 @@ import {
     makeMember,
     makePremiumMember,
     innerHTML
-} from '../src/utils.js';
+} from '../public/src/utils.js';
 
 import { jest } from '@jest/globals';
-import * as uiModule from '../src/ui.js';
+import * as uiModule from '../public/src/ui.js';
 
 describe('Book Class', () => {
     let book;

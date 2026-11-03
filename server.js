@@ -7,15 +7,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const isVercel = Boolean(process.env.VERCEL);
 
-// Serve your HTML/CSS/JS files
-app.use(express.static("."));
 app.use(express.json());
 
-// Save endpoint — overwrites Data.txt
+// Local only: on Vercel, files in public/ are served by the CDN
+// (express.static is ignored there).
+if (!isVercel) {
+    app.use(express.static(path.join(__dirname, "public")));
+}
+
+// Save endpoint — overwrites public/LibraryData/Data.txt (local development only)
 app.post("/save", (req, res) => {
+    // Vercel's filesystem is read-only, so saving to a file cannot work there.
+    if (isVercel) {
+        return res.status(501).json({
+            error: "Saving to Data.txt is only available when running locally."
+        });
+    }
+
     try {
-        const folder = path.join(__dirname, "LibraryData");
+        const folder = path.join(__dirname, "public", "LibraryData");
 
         if (!fs.existsSync(folder)) {
             fs.mkdirSync(folder, { recursive: true });
@@ -33,4 +45,9 @@ app.post("/save", (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log("Server running at http://localhost:3000"));
+// Vercel imports the exported app; locally we start our own listener.
+if (!isVercel) {
+    app.listen(3000, () => console.log("Server running at http://localhost:3000"));
+}
+
+export default app;

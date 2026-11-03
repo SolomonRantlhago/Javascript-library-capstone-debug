@@ -5,10 +5,10 @@ A browser-based Library Management System built with HTML, CSS, JavaScript, Node
 
 ## System Overview
 The system is split across four layers:
-- **`library.js`** - Contains the main business logic, including the Book, DigitalBook, Member, and PremiumMember classes, borrowing rules, overdue calculations, searching, statistics, and other library operations.
-- **`ui.js`**  - Handles the user interface, event listeners, DOM updates, and data storage. It connects user actions to the functions in `library.js`.
-- **`server.js`** - Runs an Express server that serves the application and provides a POST `/save` endpoint for saving data to `LibraryData/Data.txt`.
-- **`library.test.js`** - Jest test suite that imports functions from `library.js` and `ui.js`, and uses helper functions from `utils.js` to test core functionality and UI interactions.
+- **`public/src/library.js`** - Contains the main business logic, including the Book, DigitalBook, Member, and PremiumMember classes, borrowing rules, overdue calculations, searching, statistics, and other library operations.
+- **`public/src/ui.js`**  - Handles the user interface, event listeners, DOM updates, and data storage. It connects user actions to the functions in `library.js`.
+- **`server.js`** - Runs an Express server locally that serves the `public/` folder and provides a POST `/save` endpoint for saving data to `public/LibraryData/Data.txt`. On Vercel the app is exported instead and `public/` is served by the CDN.
+- **`tests/library.test.js`** - Jest test suite that imports functions from `library.js` and `ui.js`, and uses helper functions from `utils.js` to test core functionality and UI interactions.
 
 ## Critical Errors Found & Fixes Implemented
 
@@ -113,6 +113,9 @@ node server.js
 
 ```
 Open your browser at `http://localhost:3000`
+
+## Deploying to Vercel
+The static site (`index.html`, `styles.css`, `src/`, `LibraryData/`) lives in `public/`, which Vercel serves at `/`. On the deployed site the library is stored in the browser's `localStorage`. First-time visitors start with the default books and members from `public/LibraryData/Data.txt`. The `/save` export to `Data.txt` only runs on `localhost`. To change the default data, run the app locally, make your edits, and commit the updated `public/LibraryData/Data.txt`.
 
 ## Running Tests with Coverage
  

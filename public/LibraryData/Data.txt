@@ -1,0 +1,177 @@
+{
+  "fiction": [
+    {
+      "isbn": "9780743273565",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "year": 1925,
+      "totalCopies": 6,
+      "availableCopies": 4,
+      "checkedOut": [
+        {
+          "memberId": 1,
+          "checkoutDate": "2026-06-01T10:00:00.000Z",
+          "loanPeriod": 14,
+          "isbn": "9780743273565"
+        },
+        {
+          "memberId": 3,
+          "checkoutDate": "2026-07-09T18:45:08.403Z",
+          "isbn": "9780743273565"
+        }
+      ],
+      "category": "fiction",
+      "isDigital": false
+    },
+    {
+      "isbn": "9780061996085",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "year": 1960,
+      "totalCopies": 0,
+      "availableCopies": 0,
+      "checkedOut": [],
+      "category": "fiction",
+      "isDigital": false
+    },
+    {
+      "isbn": "9780062316097",
+      "title": "The Midnight Library",
+      "author": "Matt Haig",
+      "year": 2020,
+      "totalCopies": null,
+      "availableCopies": null,
+      "checkedOut": [
+        {
+          "memberId": 2,
+          "checkoutDate": "2026-06-09T03:22:46.848Z",
+          "isbn": "9780062316097"
+        }
+      ],
+      "category": "fiction",
+      "isDigital": true,
+      "fileSize": 1.8,
+      "format": "EPUB"
+    }
+  ],
+  "nonFiction": [
+    {
+      "isbn": "978-0-13-468599-1",
+      "title": "Eloquent JavaScript",
+      "author": "Marijn Haverbeke",
+      "year": 2018,
+      "totalCopies": 3,
+      "availableCopies": 2,
+      "checkedOut": [
+        {
+          "memberId": 2,
+          "checkoutDate": "2026-06-10T10:00:00.000Z",
+          "loanPeriod": 14,
+          "isbn": "978-0-13-468599-1"
+        }
+      ],
+      "category": "non-fiction",
+      "isDigital": false
+    },
+    {
+      "isbn": "9780525559474",
+      "title": "Sapiens",
+      "author": "Yuval Noah Harari",
+      "year": 2011,
+      "totalCopies": null,
+      "availableCopies": null,
+      "checkedOut": [],
+      "category": "non-fiction",
+      "isDigital": true,
+      "fileSize": 2.4,
+      "format": "PDF"
+    }
+  ],
+  "reference": [
+    {
+      "isbn": "978-1-49-191947-8",
+      "title": "You Don't Know JS",
+      "author": "Kyle Simpson",
+      "year": 2015,
+      "totalCopies": 2,
+      "availableCopies": 1,
+      "checkedOut": [
+        {
+          "memberId": 1,
+          "checkoutDate": "2026-05-15T10:00:00.000Z",
+          "loanPeriod": 7,
+          "isbn": "978-1-49-191947-8"
+        }
+      ],
+      "category": "reference",
+      "isDigital": false
+    },
+    {
+      "isbn": "9780199535569",
+      "title": "Oxford Dictionary of English",
+      "author": "Catherine Soanes",
+      "year": 2010,
+      "totalCopies": 1,
+      "availableCopies": 1,
+      "checkedOut": [],
+      "category": "reference",
+      "isDigital": false
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "email": "alice@email.com",
+      "membershipType": "regular",
+      "borrowedBooks": [
+        {
+          "isbn": "9780743273565",
+          "loanPeriod": 14
+        },
+        {
+          "isbn": "978-1-49-191947-8",
+          "loanPeriod": 7
+        }
+      ],
+      "downloads": [],
+      "joinDate": "2026-07-02T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Solomon Johnson",
+      "email": "solomon@email.com",
+      "membershipType": "premium",
+      "borrowedBooks": [
+        {
+          "isbn": "978-0-13-468599-1",
+          "loanPeriod": 14
+        }
+      ],
+      "downloads": [
+        {
+          "isbn": "9780062316097",
+          "expirePeriod": 7
+        }
+      ],
+      "joinDate": "2026-03-10T09:00:00.000Z",
+      "maxBooks": 10,
+      "discountRate": 0.2,
+      "priorityHolds": true
+    },
+    {
+      "id": 3,
+      "name": "Charles Rantlhago",
+      "email": "charles@gmail.com",
+      "membershipType": "regular",
+      "borrowedBooks": [
+        {
+          "isbn": "9780743273565",
+          "loanPeriod": 7
+        }
+      ],
+      "downloads": [],
+      "joinDate": "2026-07-04T12:16:01.323Z"
+    }
+  ]
+}
