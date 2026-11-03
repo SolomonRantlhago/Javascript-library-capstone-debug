@@ -1,0 +1,742 @@
+/* ============================================
+   Library Management System — styles
+   Palette: ink navy / paper / library green
+   ============================================ */
+
+:root {
+    --ink: #1B2430;
+    --ink-soft: #2A3544;
+    --paper: #F7F3EA;
+    --paper-dim: #ECE6D8;
+    --green: #5B7A5E;
+    --green-dark: #3F5942;
+    --terracotta: #C1502E;
+    --gold: #C9A24B;
+    --text-muted: #8A8F98;
+    --line: rgba(27, 36, 48, 0.12);
+
+    --font-display: "Source Serif 4", Georgia, serif;
+    --font-body: "Inter", -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+    --radius: 3px;
+    --shadow-card: 0 1px 2px rgba(27, 36, 48, 0.08), 0 4px 12px rgba(27, 36, 48, 0.06);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+.container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px 64px;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 32px 0 20px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 28px;
+}
+
+.brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.brand h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 26px;
+    margin: 0;
+    letter-spacing: 0.2px;
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.tab-btn {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+.tab-btn::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: -1px;
+    height: 2px;
+    background: var(--green-dark);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.18s ease;
+}
+
+.tab-btn:hover {
+    color: var(--ink);
+}
+
+.tab-btn.is-active {
+    color: var(--ink);
+}
+
+.tab-btn.is-active::after {
+    transform: scaleX(1);
+}
+
+.tab-btn:focus-visible {
+    outline: 2px solid var(--green-dark);
+    outline-offset: 3px;
+}
+
+/* ---------- View switching ---------- */
+
+.view {
+    display: none;
+}
+
+.view.is-active {
+    display: block;
+    animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- Message banner ---------- */
+
+.message-banner {
+    display: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    border-left: 3px solid transparent;
+}
+
+.message-banner.is-visible {
+    display: block;
+}
+
+/* ---------- Controls ---------- */
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.controls input,
+.controls select {
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--ink);
+}
+
+#book-search {
+    flex: 1;
+    min-width: 220px;
+}
+
+#search-btn-book {
+    flex-shrink: 0;
+}
+
+.controls input:focus-visible,
+.controls select:focus-visible {
+    outline: 2px solid var(--green-dark);
+    outline-offset: 1px;
+}
+
+/* ---------- Book grid + cards (signature element) ---------- */
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.book-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 18px 16px 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(27, 36, 48, 0.1), 0 8px 20px rgba(27, 36, 48, 0.08);
+}
+
+.category-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.book-card h3 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+
+.book-card .author {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+}
+
+.book-card .isbn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.book-card .availability {
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.availability.available {
+    color: var(--green-dark);
+}
+
+.availability.unavailable {
+    color: var(--terracotta);
+}
+
+.book-details {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 24px;
+    display: none;
+}
+
+.book-details.is-visible {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.book-details h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.book-details p {
+    margin: 0;
+}
+
+.book-details .isbn {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.book-card.is-checked-out::after {
+    content: "Copies not available";
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--terracotta);
+    margin-top: 8px;
+}
+.book-card.is-checked-out {
+    opacity: 0.6;
+    border-left: 3px solid var(--terracotta);
+}
+
+
+/* ---------- Member grid + cards ---------- */
+
+.member-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.member-card {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+    padding: 18px 16px 16px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.badge-premium {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/* ---------- Member details ---------- */
+
+.member-details {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: 24px;
+    display: none;
+}
+
+.member-details.is-visible {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+}
+
+.member-details h3 {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.member-details p {
+    margin: 0;
+}
+
+.member-detail-section {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.member-detail-list {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 0;
+    display: grid;
+    gap: 6px;
+}
+
+.member-detail-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--paper);
+    border-radius: var(--radius);
+    font-size: 13px;
+    text-align: center;
+}
+
+.member-detail-book span {
+    font-weight: 600;
+}
+
+.member-detail-book .meta {
+    font-size: 11px;
+    margin: 0;
+}
+
+/* ---------- Borrow panel ---------- */
+
+.section-panel {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+}
+
+.section-panel h2,
+.member-form ~ h2,
+#member-section h2,
+.statistics-section h2 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 600;
+    margin: 0 0 16px;
+}
+
+.inline-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.inline-form input {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: white;
+}
+
+.inline-form input:focus-visible {
+    outline: 2px solid var(--green-dark);
+    outline-offset: 1px;
+}
+.inline-form .field-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.is-hidden {
+    display: none;
+}
+.inline-form .field-group.is-hidden {
+    display: none;
+}
+
+.btn {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--green-dark);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--ink);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+}
+
+.btn-secondary:hover {
+    border-color: var(--ink);
+}
+
+.overdue-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.overdue-controls input {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    width: 80px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.overdue-list {
+    display: grid;
+    gap: 8px;
+}
+
+.overdue-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(193, 80, 46, 0.06);
+    border-left: 3px solid var(--terracotta);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 13px;
+}
+
+.overdue-item .days-late {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--terracotta);
+    white-space: nowrap;
+}
+
+.overdue-text {
+    color: var(--terracotta);
+    font-weight: 600;
+}
+.empty-state {
+    color: var(--text-muted);
+    font-size: 14px;
+    padding: 8px 0;
+}
+
+#return-books-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.return-book-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn:disabled {
+    background: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.card-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.card-btn {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    background: transparent;
+    color: var(--ink);
+    transition: background 0.15s ease;
+}
+
+.view-btn {
+    background: var(--green-dark);
+    color: white;
+    border-color: var(--green-dark);
+}
+
+.view-btn:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+}
+
+.edit-btn:hover {
+    border-color: var(--ink);
+    background: var(--paper-dim);
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 12px;
+    text-align: left;
+}
+
+.edit-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.edit-form input,
+.edit-form select {
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--ink);
+}
+
+.edit-form-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+/* ---------- Members ---------- */
+.inline-form select {
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: white;
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.inline-form select:focus-visible {
+    outline: 2px solid var(--green-dark);
+    outline-offset: 1px;
+}
+
+.member-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(27, 36, 48, 0.1), 0 8px 20px rgba(27, 36, 48, 0.08);
+}
+
+.member-card .name {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    line-height: 1.3;
+}
+
+.meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0;
+}
+/* ---------- Statistics ---------- */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: var(--radius);
+    padding: 22px 18px;
+}
+
+.stat-card h3 {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: rgba(247, 243, 234, 0.65);
+    margin: 0 0 8px;
+}
+
+.stat-card p {
+    font-family: var(--font-display);
+    font-size: 34px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--gold);
+}
+
+.popular-book {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    font-size: 14px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 600px) {
+    .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .inline-form {
+        flex-direction: column;
+    }
+
+    .inline-form .btn {
+        width: 100%;
+    }
+
+    .member-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

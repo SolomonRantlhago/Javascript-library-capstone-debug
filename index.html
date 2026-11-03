@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="site-header">
+            <div class="brand">
+                <h1>Digital Library System</h1>
+            </div>
+            <nav class="tabs" role="tablist">
+                <button id="catalogue-tab" class="tab-btn is-active" role="tab" aria-selected="true">Catalogue</button>
+                <button id="members-tab" class="tab-btn" role="tab" aria-selected="false">Members</button>
+                <button id="statistics-tab" class="tab-btn" role="tab" aria-selected="false">Statistics</button>
+            </nav>
+        </header>
+
+        <main>
+            <section id="catalogue-section" class="view is-active">
+                <div id="message-banner-catalogue" class="message-banner" role="status" aria-live="polite"></div>
+                <div class="controls">
+                    <input type="text" id="book-search" placeholder="Search by title or author&hellip;">
+                    <button id="search-btn-book" class="btn btn-primary">Search</button>
+                    <select id="filter-category">
+                        <option value="all">All categories</option>
+                        <option value="fiction">Fiction</option>
+                        <option value="non-fiction">Non-fiction</option>
+                        <option value="reference">Reference</option>
+                    </select>
+                </div>
+
+                <div id="catalogue-list" class="book-grid"></div>
+
+                <div id="book-details" class="book-details"></div>
+                <div id="message-banner-editbook" class="message-banner" role="status" aria-live="polite"></div>
+
+                <div class="section-panel">
+                    <h2>Add a new book</h2>
+                    <div id="message-banner-addbook" class="message-banner" role="status" aria-live="polite"></div>
+                    <form id="add-book-form" class="inline-form">
+                        <label class="sr-only" for="new-isbn">ISBN</label>
+                        <input type="text" id="new-isbn" placeholder="ISBN" required>
+
+                        <label class="sr-only" for="new-title">Title</label>
+                        <input type="text" id="new-title" placeholder="Title" required>
+
+                        <label class="sr-only" for="new-author">Author</label>
+                        <input type="text" id="new-author" placeholder="Author" required>
+                        <label class="sr-only" for="new-year">Year</label>
+                        <select id="new-year" required></select>
+
+                        <label class="sr-only" for="new-book-type">Book type</label>
+                        <select id="new-book-type">
+                            <option value="physical">Physical</option>
+                            <option value="digital">Digital</option>
+                        </select>
+
+                        <span id="physical-fields" class="field-group">
+                            <label class="sr-only" for="new-copies">Copies</label>
+                            <input type="number" id="new-copies" placeholder="Copies" min="1" required>
+                        </span>
+
+                        <span id="digital-fields" class="field-group is-hidden">
+                            <label class="sr-only" for="new-filesize">File size (MB)</label>
+                            <input type="number" id="new-filesize" placeholder="File size (MB)" min="0" step="0.1">
+
+                            <label class="sr-only" for="new-format">Format</label>
+                            <select id="new-format">
+                                <option value="PDF">PDF</option>
+                                <option value="EPUB">EPUB</option>
+                                <option value="MOBI">MOBI</option>
+                            </select>
+                        </span>
+
+                        <label class="sr-only" for="new-category">Category</label>
+                        <select id="new-category">
+                            <option value="fiction">Fiction</option>
+                            <option value="non-fiction">Non-fiction</option>
+                            <option value="reference">Reference</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary">Add book</button>
+                    </form>
+                </div>
+
+                <div class="section-panel">
+                    <h2>Borrow a book</h2>
+                    <div id="message-banner-borrowbook" class="message-banner" role="status" aria-live="polite"></div>
+                    <form id="borrow-form" class="inline-form">
+                        <label class="sr-only" for="borrow-member-id">Member</label>
+                        <select id="borrow-member-id" required></select>
+
+                        <label class="sr-only" for="borrow-book-id">ISBN</label>
+                        <select id="borrow-book-id" required></select>
+                        <select id="loan-bookperiod-id" required>
+                            <option value="">Loan period...</option>
+                            <option value="7">7 days</option>
+                            <option value="14">14 days (standard)</option>
+                            <option value="21">21 days</option>
+                            <option value="30">30 days</option>
+                        </select>
+
+                        <button type="submit" class="btn btn-primary">Borrow book</button>
+                    </form>
+                </div>
+
+                <div class="section-panel">
+                    <h2>Return a book</h2>
+                    <div id="message-banner-returnbook" class="message-banner" role="status" aria-live="polite"></div>
+                    <form id="return-form" class="inline-form">
+                        <label class="sr-only" for="return-member-id">Member ID</label>
+                        <select id="return-member-id" required></select>
+
+                        <div id="return-books-list"></div>
+
+                        <button id="return-book-btn" type="submit" class="btn btn-primary">Return book</button>
+                    </form>
+                </div>
+                <div class="section-panel">
+                    <h2>Overdue books</h2>
+                    <div id="message-banner-OverDuebooks" class="message-banner" role="status" aria-live="polite"></div>
+                    <div class="overdue-controls">
+                        <label class="sr-only" for="overdue-period-id">Overdue period</label>
+                        <select id="overdue-period-id" required>
+                            <option value="">Select period...</option>
+                            <option value="all">All overdue</option>
+                             <option value="30">Over 30 days (critical)</option>
+                        </select>
+                        <button id="check-overdue-btn" class="btn btn-primary">Check overdue</button>
+                    </div>
+                    <div id="overdue-list" class="overdue-list"></div>
+                </div>
+            </section>
+
+            <section id="member-section" class="view">
+                <h2>Member management</h2>
+                <div class="controls">
+                    <input type="text" id="member-search" placeholder="Search by full Name&hellip;">
+                    <button id="member-search-btn" class="btn btn-primary">Search</button>
+                    <select id="filter-member-type">
+                        <option value="all">All members</option>
+                        <option value="regular">Regular</option>
+                        <option value="premium">Premium</option>
+                    </select>
+                </div>
+                
+                <div id="member-list" class="member-list"></div>
+                <div id="member-details" class="member-details"></div>
+                <div id="message-banner-editMember" class="message-banner" role="status" aria-live="polite"></div>
+
+                <div class="section-panel">
+                    <h2>Add a new member</h2>
+                    <div id="message-banner-addmember" class="message-banner" role="status" aria-live="polite"></div>
+                    <div id="member-form"></div>
+                </div>
+
+            </section>
+
+            <section id="statistics-section" class="view">
+                <h2>Library statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Physical books</h3>
+                        <p id="total-physical-id">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Digital books</h3>
+                        <p id="total-digital-id">0</p>
+                    </div>
+                    <div class="stat-card">
+                       <h3>Physical available</h3>
+                       <p id="total-available-id">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total members</h3>
+                        <p id="total-members-id">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Books borrowed</h3>
+                        <p id="books-borrowed">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Books downloaded</h3>
+                        <p id="books-downloaded">0</p>
+                    </div>
+                </div>
+                <div id="popular-book" class="popular-book"></div>
+            </section>
+        </main>
+    </div>
+
+<script type="module" src="./src/library.js"></script>
+<script type="module" src="./src/ui.js"></script>
+</body>
+</html>
